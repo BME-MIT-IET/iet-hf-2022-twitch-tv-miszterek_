@@ -49,7 +49,7 @@ class GameBoard() {
         return true
     }
 
-    private fun checkForGameEnd() {
+    private fun checkForGameEnd(): Boolean {
         var moved = false
 
         gameEndHelper = 0
@@ -85,6 +85,7 @@ class GameBoard() {
         gameEndHelper = 1
         gameEnded = !moved
         Log.d("Game ended", gameEnded.toString())
+        return gameEnded
     }
 
     fun newGame() {
@@ -156,13 +157,17 @@ class GameBoard() {
         return MovementInfo(start, start, startValue, startValue)
     }
 
-    private fun spawnRandom() : MovementInfo {
+    private fun spawnRandom(newValue: Int? = null, newIndex: Int? = null) : MovementInfo {
         var spawned = false
 
         var value = 2
 
         if((1..10).random() > 8) {
             value = 4
+        }
+
+        if (newValue != null) {
+            value = newValue
         }
 
         val countEmpty = gameBoard.count { v -> v == 0 }
@@ -172,6 +177,9 @@ class GameBoard() {
         if(countEmpty > 0) {
             while(!spawned) {
                 index = (0..15).random()
+                if (newIndex != null) {
+                    index = newIndex
+                }
                 if(gameBoard[index] == 0) {
                     gameBoard[index] = value
                     spawned = true
