@@ -1,0 +1,1 @@
+Beszámoló a manuális és statikus tesztekről.

@@ -1,0 +1,1 @@
+Projektünk rövid leírása.
