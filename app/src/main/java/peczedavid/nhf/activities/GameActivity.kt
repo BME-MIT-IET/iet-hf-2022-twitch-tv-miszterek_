@@ -286,14 +286,14 @@ class GameActivity : AppCompatActivity() {
                                         diffY : Float) : Boolean {
             return if (abs(diffY) > swipeThreshold) {
                 if (diffY > 0) {
-                    Log.d("GameActivity", "Swipe down")
+                    //Log.d("GameActivity", "Swipe down")
                     animateTiles(gameBoard.move(Direction.DOWN))
                     if(gameBoard.gameEnded) {
                         saveRunToDatabase()
                         handleBackButtonState()
                     }
                 } else {
-                    Log.d("GameActivity", "Swipe up")
+                    //Log.d("GameActivity", "Swipe up")
                     animateTiles(gameBoard.move(Direction.UP))
                     if(gameBoard.gameEnded) {
                         saveRunToDatabase()
@@ -310,14 +310,14 @@ class GameActivity : AppCompatActivity() {
                                           diffX: Float) : Boolean {
            return if (abs(diffX) > swipeThreshold) {
                 if (diffX > 0) {
-                    Log.d("GameActivity", "Swipe right")
+                    //Log.d("GameActivity", "Swipe right")
                     animateTiles(gameBoard.move(Direction.RIGHT))
                     if(gameBoard.gameEnded) {
                         saveRunToDatabase()
                         handleBackButtonState()
                     }
                 } else {
-                    Log.d("GameActivity", "Swipe left")
+                    //Log.d("GameActivity", "Swipe left")
                     animateTiles(gameBoard.move(Direction.LEFT))
                     if(gameBoard.gameEnded) {
                         saveRunToDatabase()
