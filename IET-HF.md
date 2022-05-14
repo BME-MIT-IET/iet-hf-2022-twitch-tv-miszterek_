@@ -1,4 +1,4 @@
-## **2048**
+## <span style="color:chocolate">**2048**</span>
 
 A projekt a jól ismert 2048 játék implementációja
 - **Android**-ra
