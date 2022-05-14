@@ -259,7 +259,8 @@ class GameActivity : AppCompatActivity() {
             super.onTouchEvent(event)
         }
     }
-
+    //TODO:
+    //  -észrevétel(SonarLint): komplex logika 1 függvényben
     inner class GameGestureListener : GestureDetector.SimpleOnGestureListener() {
         private val swipeThreshold = 100
 
