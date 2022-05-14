@@ -281,6 +281,8 @@ class GameBoard() {
         }
     }
 
+    //Todo: szétbontani kisebb függvényekre
+    // -észrevétel(SonarLint): túl komplex függvény(23, a maximum pedig 15)
     fun move(direction: Direction): MutableList<MovementInfo> {
         clearAnimations()
         resetSummedHelper()
