@@ -30,4 +30,4 @@ private fun handleFling(downEvent: MotionEvent?, moveEvent: MotionEvent?, veloci
 }
 ```
 
-Így mind a kettő függvény komplexitása 15 alatt van. A kód pedig olvashatóbb lett.
+Így mind a kettő függvény komplexitása 15 alatt van. A kód pedig kicsit hosszabb, de olvashatóbb lett.
