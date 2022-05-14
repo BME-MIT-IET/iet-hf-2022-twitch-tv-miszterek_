@@ -259,8 +259,7 @@ class GameActivity : AppCompatActivity() {
             super.onTouchEvent(event)
         }
     }
-    //TODO:
-    //  -észrevétel(SonarLint): komplex logika 1 függvényben
+
     inner class GameGestureListener : GestureDetector.SimpleOnGestureListener() {
         private val swipeThreshold = 100
 
@@ -271,48 +270,63 @@ class GameActivity : AppCompatActivity() {
             val diffX = moveEvent?.x?.minus(downEvent!!.x) ?: 0.0F
             val diffY = moveEvent?.y?.minus(downEvent!!.y) ?: 0.0F
 
+            return handleFling(downEvent, moveEvent, velocityX, velocityY, diffX, diffY)
+        }
+
+        private fun handleFling(downEvent: MotionEvent?, moveEvent: MotionEvent?, velocityX: Float, velocityY: Float,
+                                diffX: Float, diffY : Float) : Boolean {
             return if (abs(diffX) > abs(diffY)) {
-                if (abs(diffX) > swipeThreshold) {
-                    if (diffX > 0) {
-                        Log.d("GameActivity", "Swipe right")
-                        animateTiles(gameBoard.move(Direction.RIGHT))
-                        if(gameBoard.gameEnded) {
-                            saveRunToDatabase()
-                            handleBackButtonState()
-                        }
-                    } else {
-                        Log.d("GameActivity", "Swipe left")
-                        animateTiles(gameBoard.move(Direction.LEFT))
-                        if(gameBoard.gameEnded) {
-                            saveRunToDatabase()
-                            handleBackButtonState()
-                        }
-                    }
-                    true
-                } else {
-                    super.onFling(downEvent, moveEvent, velocityX, velocityY)
-                }
+                handleHorizontalFling(downEvent, moveEvent, velocityX, velocityY, diffX)
             } else {
-                if (abs(diffY) > swipeThreshold) {
-                    if (diffY > 0) {
-                        Log.d("GameActivity", "Swipe down")
-                        animateTiles(gameBoard.move(Direction.DOWN))
-                        if(gameBoard.gameEnded) {
-                            saveRunToDatabase()
-                            handleBackButtonState()
-                        }
-                    } else {
-                        Log.d("GameActivity", "Swipe up")
-                        animateTiles(gameBoard.move(Direction.UP))
-                        if(gameBoard.gameEnded) {
-                            saveRunToDatabase()
-                            handleBackButtonState()
-                        }
+                handleVerticalFling(downEvent, moveEvent, velocityX, velocityY, diffY)
+            }
+        }
+
+        private fun handleVerticalFling(downEvent: MotionEvent?, moveEvent: MotionEvent?, velocityX: Float, velocityY: Float,
+                                        diffY : Float) : Boolean {
+            return if (abs(diffY) > swipeThreshold) {
+                if (diffY > 0) {
+                    Log.d("GameActivity", "Swipe down")
+                    animateTiles(gameBoard.move(Direction.DOWN))
+                    if(gameBoard.gameEnded) {
+                        saveRunToDatabase()
+                        handleBackButtonState()
                     }
-                    true
                 } else {
-                    super.onFling(downEvent, moveEvent, velocityX, velocityY)
+                    Log.d("GameActivity", "Swipe up")
+                    animateTiles(gameBoard.move(Direction.UP))
+                    if(gameBoard.gameEnded) {
+                        saveRunToDatabase()
+                        handleBackButtonState()
+                    }
                 }
+                true
+            } else {
+                super.onFling(downEvent, moveEvent, velocityX, velocityY)
+            }
+        }
+
+        private fun handleHorizontalFling(downEvent: MotionEvent?, moveEvent: MotionEvent?, velocityX: Float, velocityY: Float,
+                                          diffX: Float) : Boolean {
+           return if (abs(diffX) > swipeThreshold) {
+                if (diffX > 0) {
+                    Log.d("GameActivity", "Swipe right")
+                    animateTiles(gameBoard.move(Direction.RIGHT))
+                    if(gameBoard.gameEnded) {
+                        saveRunToDatabase()
+                        handleBackButtonState()
+                    }
+                } else {
+                    Log.d("GameActivity", "Swipe left")
+                    animateTiles(gameBoard.move(Direction.LEFT))
+                    if(gameBoard.gameEnded) {
+                        saveRunToDatabase()
+                        handleBackButtonState()
+                    }
+                }
+                true
+            } else {
+                super.onFling(downEvent, moveEvent, velocityX, velocityY)
             }
         }
     }
