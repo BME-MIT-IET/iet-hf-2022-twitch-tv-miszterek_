@@ -1,5 +1,11 @@
 # :sparkler: UI Tesztek
 
+Androidon a teszteket két nagy kategóriára tudjuk bontani:
+- **Local tests**: Ezek, olyan tesztek, melyekhez nem szükséges Android eszköz, mert a fejlesztő eszközén vagy CI rendszeren is tudnak futni. Általában az egységtesztek tartoznak ebbe a kategóriába.
+- **Instrumented tests**: Ezek olyan tesztek, melyekhez szükség van fizikai vagy virtuális Android eszközre. A tesztek az Android eszközön futnak. A UI tesztek ide tartoznak.
+
+Ebben a feladatban a UI teszteket készítettem el és dokumentáltam le. A tesztek futtatása előtt néhány beállításra szükség van az eszközön.
+
 ## :exclamation: Előkövetelmények:
 
 0. :iphone: Fizikai Android eszköz vagy Emulátor
@@ -24,3 +30,7 @@
 | navigationToLeaderboardThenBack | Átlép a rangilsta képernyőre, majd vissza | Megnyílik a **LeaderboardActivity**, majd bezárja és visszalép az eredeti Activity-be | :+1: |
 | navigationToGameThenBack | Átlép a játék képernyőre, majd vissza | Megnyílik a **GameActivity** és elindul a játék, majd bezárja és visszalép az eredeti Activity-be | :+1: |
 
+## :video_game: Játéklogikával kapcsolatos teszt esetek:
+
+| Teszt eset neve | Leírás | Várt eredmény | :+1: / :-1: |
+|:---------------:|:------:|:-------------:|:-----------:|
