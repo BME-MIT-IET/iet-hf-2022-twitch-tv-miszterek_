@@ -89,7 +89,7 @@ Tesztadatokra a tesztelés végrehajtásához egyik esetben sem volt szükség.
 |MT05|StepBack nem működik, timer megáll, csak új játékot tudunk kezdeni|As Expected| :+1: |
 |MT06| A korábbi állapotot nem tudjuk betölteni, mert új játék kezdődött|Korábbi állapotot nem tudja betölteni, de nincs disabled állapotban a gomb. Becsapja a játékost.| :-1: |
 |MT07| A jelenlegi lépés előtti lépést betölti| Betölti a legutolsó lépést, a gomb nem disabled| :+1: |
-|MT08| Betölti a korábbi lépéseket| A jelenlegi lépést megelőző lépst tölti csak be, ezután nem csinál több dolgot a gomb, de nem disabled| :-1:|
+|MT08| Betölti a korábbi lépéseket| A jelenlegi lépést megelőző lépést tölti csak be, ezután nem csinál több dolgot a gomb, de nem disabled| :-1:|
 |||**Összesen:**| 6/8 |
 
 ## :pushpin: Összefoglalás
