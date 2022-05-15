@@ -4,7 +4,36 @@ Androidon a teszteket két nagy kategóriára tudjuk bontani:
 - **Local tests**: Ezek, olyan tesztek, melyekhez nem szükséges Android eszköz, mert a fejlesztő eszközén vagy CI rendszeren is tudnak futni. Általában az egységtesztek tartoznak ebbe a kategóriába.
 - **Instrumented tests**: Ezek olyan tesztek, melyekhez szükség van fizikai vagy virtuális Android eszközre. A tesztek az Android eszközön futnak. A UI tesztek ide tartoznak.
 
-Ebben a feladatban a UI teszteket készítettem el és dokumentáltam le. A tesztek futtatása előtt néhány beállításra szükség van az eszközön. 
+Ebben a feladatban a UI teszteket készítettem el az Androidra fejlesztett [Espresso](https://developer.android.com/training/testing/espresso) könyvtár segítségével. A tesztek futtatása előtt néhány beállításra szükség van az eszközön. 
+
+# :coffee: Néhány szó az Espresso könyvtárról
+
+Az Espresso segítségével:
+- Ki tudunk jelölni elemeket a képernyőn pl.: gomb, szöveg, kép. Különböző Matcher-ek segítségével pl.: withId(), withText(), stb...
+- Kijelölt elemeket adatait meg tudjuk nézni pl.: Szövegdoboz text attribútumát, gomb kattinhatóságát stb...
+- Különböző felhasználói műveletekt tudunk végrehajtani automatizáltan pl.: kattintés, suhintás, szöveges bemenet kitöltés
+
+Egy egyszerű példa elem kijelölésre és tulajdonságok ellenőrzésére:
+
+```kotlin
+onView(withId(R.id.playGameBtn))
+    .check(matches(withText("PLAY GAME")))
+    .check(matches(isDisplayed()))
+    .check(matches(isClickable()))
+    .check(isCompletelyBelow(withText("2048")))
+    .check(isCompletelyAbove(withText("LEADERBOARD")))
+```
+
+> Kijelöli a játék indítás gombot, majd ellenőrzi a következő adatokat: **PLAY GAME** szöveg található a gombon, megjelenik-e a képernyőn, kattintható-e a gomb, a **2048** feliratú elem alatt és a **LEADERBOARD** feliratú elem felett van-e.
+
+Másik példa egy suhintás interakcióra:
+
+```kotlin
+onView(withId(R.id.gameBoard))
+    .perform(ViewActions.swipeRight())
+```
+
+> Kiválaszt egy elemet a képernyőn, majd jobbra suhint egyet
 
 ## :exclamation: Előkövetelmények:
 
@@ -63,5 +92,24 @@ Ebben a feladatban a UI teszteket készítettem el és dokumentáltam le. A tesz
 
 :two: A csempe értéke eredeti játék során **2** vagy **4** lehet véletlenszerűen, tesztelés módban ezt fix **2**-re állítottam. Ez a kényszer nem csökkenti a tesztek hasznosságát, épp ellenkezőleg egyszerűbben lehet elkészíteni és kipróbálni speciális eseteket.
 
+# :pushpin: Összefoglalás
 
+A feladat során, nem teszteltem le az összes Activity-t, helyette inkább a főgg funkciókra, elsőroban a játéklogikára koncentráltam. Így 5 db navigációval és 18 db játéklogikával kapcsolatos teszt készült el.
 
+Van néhány eset melyet, nem tudtam tesztelni pontosan pl.: a timer teszt során az időt nem tudtam pontosan tesztelni, így előfordulhat a teszt többszöri futtatása esetén, hogy sikertelen lesz ez az eset.
+
+A játék nagyrésze egy egyszerű véletlenszerű pozícióban megjelenő Tile mechanikára épül, ezért a feladat része volt ennek a véletlenszerű működésnek a módosítása. Ezért több függvényt publikussá keleltt tenni és be kellett vezetni 1 csak tesztelés során használt változót.
+
+A játéklogikával kapcsolatos teszteket lelassítottam, mert előfordult, hogy én az emulátoron már jól láttam az eredményt, de az Espresso még nem érzékelte azokat pontosan. Így ezek lefutása nagyjából 20 másodperccel lett hosszab. A várakozásokat 1s-re állítottam, de néha gíy is elfordul, hogy egy-egy teszt eset nem a várt kimenetnek megfelelő eredményt ad, de ez könnyen orvosolható az várakozás meghosszabbításával vagy a tesztek újra futtatásával.
+
+A játék alapjáraton minden esemény után ment és betölti a mentett adatokat, előfordult, hogy néhány teszt eset hatott a másikra, így figyelnem kellett erre a funkcióra is, hogy ne zavarjon a tesztelés során.
+
+A játékban minden Tile egy Layout-ból és egy benne lévő TextView-ból áll, ez az animációk során előnyt jelentett, viszont a tesztelés során nem nagyon lehetett kiválasztani az adott Tile-öket a mezőn. Ezért bevezettem, hogy létrehozáskor minden Tile kap egy saját azonosítót: 910 + index, és ez alapján a következőképpen tudom kiválasztani a Tile-ben lévő szöveget:
+
+```kotlin
+onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+```
+
+> allOf() egy olyan matcher, mely csak az összes feltételre illeszkedő elemet találja meg, az esetünkben a speciálisan azonosított Layout, majd az abban lévő első(és egyetlen) gyerek elem a TextView
+
+Erre a bonyolult, kijelölésre azért volt szükség, mert az alkalmazásban ezek a Tile-ök Gridbe vannak rendezve, az Espresso a Grid és List elemeit máshogy tudja kiválasztani, mint az egyszerű elemeket pl gomb, szöveg. Szüksége van egy Adapterre, viszont az alkalmazás nem használt adaptert a Grid-hez.
