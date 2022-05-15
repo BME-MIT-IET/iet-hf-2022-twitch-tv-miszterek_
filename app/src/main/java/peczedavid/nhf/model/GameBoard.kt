@@ -3,10 +3,12 @@ package peczedavid.nhf.model
 import android.app.Activity
 import android.content.Context
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import peczedavid.nhf.animation.MovementInfo
 
-class GameBoard() {
-    var gameBoardBefore: MutableList<Int> = mutableListOf()
+class GameBoard {
+    @VisibleForTesting
+    private var gameBoardBefore: MutableList<Int> = mutableListOf()
     private var gameBoard: MutableList<Int> = mutableListOf()
 
     private var summedHelper: MutableList<Boolean> = mutableListOf()
@@ -14,6 +16,9 @@ class GameBoard() {
     private var animations: MutableList<MovementInfo> = mutableListOf()
 
     private var shouldSpawnNewTile = false
+
+    var uiTestNextTileValue = 2
+    var uiTestMode = false
 
     companion object {
         var gameEndHelper = 1
@@ -170,19 +175,34 @@ class GameBoard() {
             value = newValue
         }
 
+        if (uiTestMode) {
+            value = uiTestNextTileValue
+        }
+
         val countEmpty = gameBoard.count { v -> v == 0 }
 
         var index = -1
 
         if(countEmpty > 0) {
-            while(!spawned) {
-                index = (0..15).random()
-                if (newIndex != null) {
-                    index = newIndex
+            if (uiTestMode) {
+                var firstIndex = 0
+                while(!spawned) {
+                    index = firstIndex++
+                    if(gameBoard[index] == 0) {
+                        gameBoard[index] = value
+                        spawned = true
+                    }
                 }
-                if(gameBoard[index] == 0) {
-                    gameBoard[index] = value
-                    spawned = true
+            } else {
+                while(!spawned) {
+                    index = (0..15).random()
+                    if (newIndex != null) {
+                        index = newIndex
+                    }
+                    if(gameBoard[index] == 0) {
+                        gameBoard[index] = value
+                        spawned = true
+                    }
                 }
             }
         }

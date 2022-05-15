@@ -13,6 +13,7 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.core.view.GestureDetectorCompat
 import peczedavid.nhf.animation.MovementInfo
@@ -38,7 +39,7 @@ class GameActivity : AppCompatActivity() {
     private lateinit var database: LeaderboardDatabase
     private lateinit var serviceIntent: Intent
 
-    private var gameBoard: GameBoard = GameBoard()
+    var gameBoard: GameBoard = GameBoard()
     private var tileLayouts: MutableList<LinearLayout> = mutableListOf()
     private var tileViews: MutableList<TextView> = mutableListOf()
 
@@ -136,6 +137,10 @@ class GameActivity : AppCompatActivity() {
     private fun createTile(i: Int, j: Int, value: Int) {
         gridItemBinding = GridTileBinding.inflate(layoutInflater)
         val tileLayout = gridItemBinding.root
+
+        val tileId = (i * 4) + j
+        tileLayout.id = 910 + tileId
+
         tileFormatter.formatTile(gridItemBinding.textView, value)
 
         tileLayout.x = offset.x + moveDist * j
