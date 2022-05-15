@@ -162,7 +162,7 @@ class GameBoard {
         return MovementInfo(start, start, startValue, startValue)
     }
 
-    private fun spawnRandom(newValue: Int? = null, newIndex: Int? = null) : MovementInfo {
+    fun spawnRandom(newValue: Int? = null, newIndex: Int? = null) : MovementInfo {
         var spawned = false
 
         var value = 2
@@ -359,6 +359,11 @@ class GameBoard {
     fun loadState(activity: Activity) {
         val sharedPref = activity.getPreferences(Context.MODE_PRIVATE) ?: return
         gameBoard.clear()
+
+        if (uiTestMode) {
+            newGame()
+            return
+        }
 
         if(sharedPref.getInt("gameBoard_element_0", -1) == -1) {
             newGame()

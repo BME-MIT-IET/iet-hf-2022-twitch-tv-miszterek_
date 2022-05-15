@@ -60,7 +60,7 @@ class GameActivity : AppCompatActivity() {
         stopService(serviceIntent)
     }
 
-    private fun resetTimer() {
+    fun resetTimer() {
         stopTimer()
         time = 0.0
         startTimer()
@@ -121,7 +121,7 @@ class GameActivity : AppCompatActivity() {
         tileLayouts.clear()
     }
 
-    private fun drawBoard() {
+    fun drawBoard() {
         clearTiles()
 
         for(i in 0..3) {

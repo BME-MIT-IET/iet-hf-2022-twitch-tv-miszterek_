@@ -1,18 +1,8 @@
 package peczedavid.nhf
 
-
-import android.widget.GridLayout
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.IdlingResource
-import androidx.test.espresso.action.AdapterViewProtocol
-import androidx.test.espresso.action.AdapterViewProtocols
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.swipeDown
-import androidx.test.espresso.assertion.PositionAssertions
 import androidx.test.espresso.assertion.PositionAssertions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -39,10 +29,6 @@ class GameLogicTest {
             activity.gameBoard.uiTestNextTileValue = 2
             activity.gameBoard.newGame()
         }
-    }
-
-    @After
-    fun after() {
     }
 
     @Test
@@ -90,7 +76,9 @@ class GameLogicTest {
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeDown())
 
-        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+        Thread.sleep(1000)
+
+        onView(allOf(withParent(withId(910 + 12)), withParentIndex(0)))
             .check(isCompletelyLeftOf(withParent(withId(910 + 13))))
             .check(isCompletelyBelow(withParent(withId(910 + 8))))
     }
@@ -104,7 +92,9 @@ class GameLogicTest {
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeRight())
 
-        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+        Thread.sleep(1000)
+
+        onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
             .check(isCompletelyRightOf(withParent(withId(910 + 2))))
             .check(isCompletelyAbove(withParent(withId(910 + 7))))
     }
@@ -118,6 +108,8 @@ class GameLogicTest {
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeLeft())
 
+        Thread.sleep(1000)
+
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
             .check(isCompletelyAbove(withParent(withId(910 + 4))))
@@ -130,7 +122,9 @@ class GameLogicTest {
             .check(matches(withText("2")))
 
         onView(withId(R.id.gameBoard))
-            .perform(ViewActions.swipeLeft())
+            .perform(ViewActions.swipeUp())
+
+        Thread.sleep(1000)
 
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
@@ -146,21 +140,383 @@ class GameLogicTest {
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeRight())
 
-        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+        Thread.sleep(1000)
+
+        onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
             .check(isCompletelyRightOf(withParent(withId(910 + 2))))
             .check(isCompletelyAbove(withParent(withId(910 + 7))))
+            .check(matches(withText("2")))
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeRight())
 
+        Thread.sleep(1000)
+
+        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
+            .check(isCompletelyAbove(withParent(withId(910 + 4))))
+            .check(matches(withText("2")))
+
+        onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 2))))
+            .check(isCompletelyAbove(withParent(withId(910 + 7))))
+            .check(matches(withText("4")))
+    }
+
+    @Test
+    fun swipeDifferentDirections() {
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(matches(isDisplayed()))
+            .check(matches(withText("2")))
+
+        onView(withId(R.id.gameBoard))
+            .perform(ViewActions.swipeRight())
+
+        Thread.sleep(1000)
+
+        onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 2))))
+            .check(isCompletelyAbove(withParent(withId(910 + 7))))
+            .check(matches(withText("2")))
+
+        onView(withId(R.id.gameBoard))
+            .perform(ViewActions.swipeDown())
+
+        Thread.sleep(1000)
+
+        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
+            .check(isCompletelyAbove(withParent(withId(910 + 4))))
+            .check(matches(withText("2")))
+
+        onView(allOf(withParent(withId(910 + 12)), withParentIndex(0)))
+            .check(isCompletelyBelow(withParent(withId(910 + 8))))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 13))))
+            .check(matches(withText("2")))
+
+        onView(allOf(withParent(withId(910 + 15)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 14))))
+            .check(isCompletelyBelow(withParent(withId(910 + 11))))
+            .check(matches(withText("2")))
+    }
+
+    @Test
+    fun swipeRightTwicePoints() {
+        activityRule.scenario.onActivity {
+            it.gameBoard.points = 0
+            it.drawBoard()
+        }
+        onView(withId(R.id.pointsTv))
+            .check(matches(withText("Points: 0")))
+
+        onView(withId(R.id.parent_layout))
+            .perform(ViewActions.swipeRight())
+
+        onView(withId(R.id.parent_layout))
+            .perform(ViewActions.swipeRight())
+
+        Thread.sleep(1000)
+
+        onView(withId(R.id.pointsTv))
+            .check(matches(withText("Points: 4")))
+    }
+
+    @Test
+    fun swipeRightThreeTimes() {
+        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+            .check(matches(isDisplayed()))
+            .check(matches(withText("2")))
+
+        onView(withId(R.id.gameBoard))
+            .perform(ViewActions.swipeRight())
+
+        onView(withId(R.id.gameBoard))
+            .perform(ViewActions.swipeRight())
+
+        onView(withId(R.id.gameBoard))
+            .perform(ViewActions.swipeRight())
+
+        Thread.sleep(1000)
+
+        onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
+            .check(matches(isDisplayed()))
+            .check(isCompletelyRightOf(withParent(withId(910 + 2))))
+            .check(isCompletelyAbove(withParent(withId(910 + 7))))
             .check(matches(withText("4")))
+
+
+        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+            .check(matches(isDisplayed()))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
+            .check(isCompletelyAbove(withParent(withId(910 + 4))))
+            .check(matches(withText("2")))
+    }
+
+    @Test
+    fun swipeRightThreeTimesPoints() {
+        onView(withId(R.id.pointsTv))
+            .check(matches(withText("Points: 0")))
+
+        onView(withId(R.id.parent_layout))
+            .perform(ViewActions.swipeRight())
+
+        onView(withId(R.id.parent_layout))
+            .perform(ViewActions.swipeRight())
+
+        onView(withId(R.id.parent_layout))
+            .perform(ViewActions.swipeRight())
+
+        Thread.sleep(1000)
+
+        onView(withId(R.id.pointsTv))
+            .check(matches(withText("Points: 4")))
+    }
+
+    @Test
+    fun newGameAfterTwoSwipes() {
+        onView(withId(R.id.newGameBtn))
+            .check(matches(isDisplayed()))
+            .check(matches(isClickable()))
+
+        onView(withId(R.id.parent_layout))
+            .perform(ViewActions.swipeRight())
+
+        onView(withId(R.id.parent_layout))
+            .perform(ViewActions.swipeRight())
+
+        Thread.sleep(1000)
+
+        onView(withText("4"))
+            .check(matches(isDisplayed()))
             .check(isCompletelyRightOf(withParent(withId(910 + 2))))
             .check(isCompletelyAbove(withParent(withId(910 + 7))))
 
-        onView(withText("2"))
+        onView(withId(R.id.newGameBtn))
+            .perform(click())
+
+        Thread.sleep(1000)
+
+        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(matches(isDisplayed()))
+            .check(matches(withText("2")))
+            .check(isCompletelyLeftOf(allOf(withParent(withId(910 + 1)), withParentIndex(0))))
+            .check(isCompletelyAbove(allOf(withParent(withId(910 + 4)), withParentIndex(0))))
     }
 
+    @Test
+    fun stepBackAfterTwoSwipes() {
+        onView(withId(R.id.stepBackBtn))
+            .check(matches(isDisplayed()))
+
+        onView(withId(R.id.parent_layout))
+            .perform(ViewActions.swipeRight())
+
+        onView(withId(R.id.parent_layout))
+            .perform(ViewActions.swipeRight())
+
+        Thread.sleep(1000)
+
+        onView(withText("4"))
+            .check(matches(isDisplayed()))
+            .check(isCompletelyRightOf(withParent(withId(910 + 2))))
+            .check(isCompletelyAbove(withParent(withId(910 + 7))))
+
+        onView(withId(R.id.stepBackBtn))
+            .perform(click())
+
+        Thread.sleep(1000)
+
+        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+            .check(matches(isDisplayed()))
+            .check(matches(withText("2")))
+            .check(isCompletelyLeftOf(allOf(withParent(withId(910 + 1)), withParentIndex(0))))
+            .check(isCompletelyAbove(allOf(withParent(withId(910 + 4)), withParentIndex(0))))
+
+        onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
+            .check(matches(isDisplayed()))
+            .check(matches(withText("2")))
+            .check(isCompletelyRightOf(allOf(withParent(withId(910 + 2)), withParentIndex(0))))
+            .check(isCompletelyAbove(allOf(withParent(withId(910 + 7)), withParentIndex(0))))
+    }
+
+    @Test
+    fun swipeThenSwipeBack() {
+        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+            .check(matches(isDisplayed()))
+            .check(matches(withText("2")))
+
+        onView(withId(R.id.gameBoard))
+            .perform(ViewActions.swipeRight())
+
+        Thread.sleep(1000)
+
+        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
+            .check(isCompletelyAbove(withParent(withId(910 + 4))))
+            .check(matches(withText("2")))
+
+        onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 2))))
+            .check(isCompletelyAbove(withParent(withId(910 + 7))))
+            .check(matches(withText("2")))
+
+        onView(withId(R.id.gameBoard))
+            .perform(ViewActions.swipeLeft())
+
+        Thread.sleep(1000)
+
+        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
+            .check(isCompletelyAbove(withParent(withId(910 + 4))))
+            .check(matches(withText("4")))
+
+        onView(allOf(withParent(withId(910 + 1)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 0))))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 2))))
+            .check(isCompletelyAbove(withParent(withId(910 + 5))))
+            .check(matches(withText("2")))
+    }
+
+    @Test
+    fun timer() {
+        activityRule.scenario.onActivity { it.resetTimer() }
+
+        Thread.sleep(100)
+
+        onView(withId(R.id.timeTv))
+            .check(matches(withText("00:00:01")))
+
+        Thread.sleep(1100)
+
+        onView(withId(R.id.timeTv))
+            .check(matches(withText("00:00:02")))
+    }
+
+    @Test
+    fun swipeRightOnRowOfSameTiles() {
+        activityRule.scenario.onActivity {
+            it.gameBoard.spawnRandom()
+            it.gameBoard.spawnRandom()
+            it.gameBoard.spawnRandom()
+
+            it.drawBoard()
+        }
+
+        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
+            .check(matches(withText("2")))
+
+        onView(allOf(withParent(withId(910 + 1)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 0))))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 2))))
+            .check(matches(withText("2")))
+
+        onView(allOf(withParent(withId(910 + 2)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 1))))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 3))))
+            .check(matches(withText("2")))
+
+        onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 2))))
+            .check(matches(withText("2")))
+
+        onView(withId(R.id.gameBoard))
+            .perform(ViewActions.swipeRight())
+
+        Thread.sleep(1000)
+
+        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
+            .check(matches(withText("2")))
+
+        onView(allOf(withParent(withId(910 + 2)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 1))))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 3))))
+            .check(matches(withText("4")))
+
+        onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 2))))
+            .check(matches(withText("4")))
+
+    }
+
+    @Test
+    fun doubleSwipeRightOnRowOfSameTiles() {
+        activityRule.scenario.onActivity {
+            it.gameBoard.spawnRandom()
+            it.gameBoard.spawnRandom()
+            it.gameBoard.spawnRandom()
+
+            it.drawBoard()
+        }
+
+        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
+            .check(matches(withText("2")))
+
+        onView(allOf(withParent(withId(910 + 1)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 0))))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 2))))
+            .check(matches(withText("2")))
+
+        onView(allOf(withParent(withId(910 + 2)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 1))))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 3))))
+            .check(matches(withText("2")))
+
+        onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 2))))
+            .check(matches(withText("2")))
+
+        onView(withId(R.id.gameBoard))
+            .perform(ViewActions.swipeRight())
+
+        onView(withId(R.id.gameBoard))
+            .perform(ViewActions.swipeRight())
+
+        Thread.sleep(1000)
+
+        onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
+            .check(matches(withText("2")))
+
+        onView(allOf(withParent(withId(910 + 2)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 1))))
+            .check(isCompletelyLeftOf(withParent(withId(910 + 3))))
+            .check(matches(withText("2")))
+
+        onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
+            .check(isCompletelyRightOf(withParent(withId(910 + 2))))
+            .check(matches(withText("8")))
+    }
+
+    @Test
+    fun doubleSwipeRightOnRowOfSameTilesPoints() {
+        activityRule.scenario.onActivity {
+            it.gameBoard.spawnRandom()
+            it.gameBoard.spawnRandom()
+            it.gameBoard.spawnRandom()
+
+            it.drawBoard()
+        }
+
+        onView(withId(R.id.pointsTv))
+            .check(matches(withText("Points: 0")))
+
+        onView(withId(R.id.gameBoard))
+            .perform(ViewActions.swipeRight())
+
+        Thread.sleep(1000)
+
+        onView(withId(R.id.pointsTv))
+            .check(matches(withText("Points: 8")))
+
+        onView(withId(R.id.gameBoard))
+            .perform(ViewActions.swipeRight())
+
+        Thread.sleep(1000)
+
+        onView(withId(R.id.pointsTv))
+            .check(matches(withText("Points: 16")))
+    }
 }
