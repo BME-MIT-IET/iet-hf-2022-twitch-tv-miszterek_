@@ -47,8 +47,11 @@ Ebben a feladatban a UI teszteket készítettem el és dokumentáltam le. A tesz
 | swipeRightThreeTimesPoints | Jobbra 3 suhintás pontszám vizsgálat | Első suhintás után a sorrend: :two: :zero: :zero: :two:. Második után: :two: :zero: :zero: :four:. Harmadik után pedig: :two: :zero: :two: :four:. Egy összeadás történik: **2 + 2 = 4**, tehát a játék pontszáma 4 lesz. | :+1: |
 | newGameAfterTwoSwipes | Kettő suhintás egy irányba, újrakezdés | Kettő suhintáskor összeadódik 2 Tile és megjelenik egy űj, majd **NEW GAME** hatására, visszaál minden az eredeti pozícióba, így a sorrend a következő lesz: :two: :zero: :zero: :zero: | :+1: |
 | stepBackAfterTwoSwipes | Kettő egyirányú suhintás után visszalépés | Első suhintás után a sorrend: :two: :zero: :zero: :two:. Második után: :two: :zero: :zero: :four:. Visszalépés hatására eltűnik a **4** értékű Tile és visszakerül 2 db **2** értékű a következő sorrendben: :two: :zero: :zero: :two: | :+1: |
-| swipeThenSwipeBack | Jobbra, majd balra suhintás | Első sunhintás után a sorrend: :two: :zero: :zero: :two:. Második után pedig: 
-:four: :two: :zero: :zero:. Négyes után 2 jön, mivel most az 1. index a legkisebb nem foglalt pozíció. | :+1: |
+| swipeThenSwipeBack | Jobbra, majd balra suhintás | Első sunhintás után a sorrend: :two: :zero: :zero: :two:. Második után pedig: :four: :two: :zero: :zero:. Négyes után 2 jön, mivel most az 1. index a legkisebb nem foglalt pozíció. | :+1: |
+| timer | Idő kijelzés | Tesz induláskor **00:00:01** az idő, vár ~1s-t és **00:00:02** lesz az új idő | :+1: |
+| swipeRightOnRowOfSameTiles | Csupa **2** értékű sor jobbra suhintás | Kezdetben a csupa **2** értékű sor :two: :two: :two: :two: jobbra húzása. Összeadódik 2 pár így 2 db **4** értékű lesz, majd megjelenik az új Tile bal oldalon. A kialakult eredmény a következő lesz: :two: :zero: :four: :four: | :+1: |
+| doubleSwipeRightOnRowOfSameTiles | Csupa **2** értékű sor jobbra suhintás kétszer | Összeadódik 2-2 **2** értékű, megjelenik egy 2 értékű, majd következő suhintás utána összeadódik a 2 db **4** értékű. A sorrend a következő lesz: :two: :zero: :two: :eight: | :+1: |
+| doubleSwipeRightOnRowOfSameTilesPoints | Csupa **2** értékű sor jobbra suhintás kétszer pontjai | Első suhintáskor 2 db összeadásból jön a kettesek összeadásából 8 pont, majd további 8 a két **4** értékű összeadásából | :+1: |
 
 ## :information_source: Előkészületek, változtatások
 
