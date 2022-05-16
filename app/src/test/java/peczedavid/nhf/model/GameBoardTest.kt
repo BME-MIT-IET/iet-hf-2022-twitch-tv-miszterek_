@@ -42,6 +42,8 @@ class GameBoardTest {
         assertThat(summedHelperTestList, equalTo(testGameBoard.summedHelper))
     }
 
+    //A moveTile() függvény visszatérési értékét teszteli
+    //abban az esetben, ha a kapott startValue 0
     @Test
     fun moveTileWith0StartValueTest() {
 

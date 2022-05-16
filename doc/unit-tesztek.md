@@ -4,13 +4,13 @@ A unit-teszteket Android Studioban végeztük az IDE beépített tesztelési leh
 
 ## Az adatbázissal kapcsolatos teszteset
 
-| Teszt eset neve | Leírás | :heavy_check_mark: / :x: |
+| Teszt eset neve | Leírás | :x: / :heavy_check_mark: |
 |:---------------:|:------:|:-----------:|
 | saveRunToDatabaseTest | Egy játék során szerzett pontok és idő mentése az adatbázisba | :heavy_check_mark: |
 
 ## A játéklogikával kapcsolatos tesztesetek
 
-| Teszt eset neve | Leírás | :heavy_check_mark: / :x: |
+| Teszt eset neve | Leírás | :x: / :heavy_check_mark: |
 |:---------------:|:------:|:-----------:|
 | initBoardTest | leírás | :heavy_check_mark: |
 | resetSummedHelperTest | leírás | :heavy_check_mark: | 
