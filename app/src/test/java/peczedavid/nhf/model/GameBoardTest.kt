@@ -75,4 +75,33 @@ class GameBoardTest {
         assertEquals(testGameBoard.pointsBefore, testGameBoard.points)
     }
 
+    @Test
+    fun moveTest() {
+
+        var gameBoardFields: MutableList<Int> = mutableListOf()
+
+        gameBoardFields.addAll(mutableListOf(0, 0, 0, 0))
+        gameBoardFields.addAll(mutableListOf(0, 0, 0, 0))
+        gameBoardFields.addAll(mutableListOf(0, 0, 0, 2))
+        gameBoardFields.addAll(mutableListOf(0, 0, 0, 0))
+
+        var exampleGameBoard = GameBoard()
+        exampleGameBoard.initBoard()
+
+        exampleGameBoard.gameBoard = gameBoardFields
+        testGameBoard.gameBoard = gameBoardFields
+
+
+        GameBoard.gameEndHelper = 0
+        testGameBoard.move(Direction.DOWN)
+        var movedField = testGameBoard.move(Direction.DOWN)
+
+
+
+        //exampleGameBoard.pushTileDown(2, 3)
+        var exampleMove = exampleGameBoard.pushTileDown(3, 3)
+
+            assertThat(movedField.get(Utils.getIndex(3, 3)), equalTo(exampleMove))
+    }
+
 }

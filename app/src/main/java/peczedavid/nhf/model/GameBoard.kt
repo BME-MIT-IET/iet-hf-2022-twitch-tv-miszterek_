@@ -11,7 +11,7 @@ class GameBoard() {
 
     public var summedHelper: MutableList<Boolean> = mutableListOf()
 
-    private var animations: MutableList<MovementInfo> = mutableListOf()
+    public var animations: MutableList<MovementInfo> = mutableListOf()
 
     private var shouldSpawnNewTile = false
 
@@ -122,7 +122,7 @@ class GameBoard() {
             animations.add(MovementInfo(Point(), Point(), 0, 0))
     }
 
-    private fun insertAnimation(idx: Int, movementInfo: MovementInfo) {
+    public fun insertAnimation(idx: Int, movementInfo: MovementInfo) {
         animations.add(idx, movementInfo)
         animations.removeAt(idx + 1)
     }
@@ -196,7 +196,7 @@ class GameBoard() {
         return MovementInfo(Point(), point, 0, value)
     }
 
-    private fun pushTileDown(i: Int, j: Int) : MovementInfo {
+    public fun pushTileDown(i: Int, j: Int) : MovementInfo {
         var movementInfo = MovementInfo(Point(i.toFloat(), j.toFloat()), Point(i.toFloat(), j.toFloat()),
             gameBoard[Utils.getIndex(i, j)], gameBoard[Utils.getIndex(i, j)])
 
