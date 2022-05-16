@@ -14,7 +14,7 @@ A unit-teszteket Android Studioban végeztük az IDE beépített tesztelési leh
 |:---------------:|:------:|:-----------:|
 | initBoardTest | A `GameBoard` objektum `gameBoard` listájának inicializálását teszteli | :heavy_check_mark: |
 | resetSummedHelperTest | A `GameBoard` objektum `summedHelper` listájának visszaállítását teszteli | :heavy_check_mark: | 
-| moveTileWith0StartValueTest | A `moveTile()` függvény visszatérési értékét teszteli abban az esetben, ha a kapott `startValue` 0 | :heavy_check_mark: |
+| moveTileWith0StartValueTest | A `moveTile()` függvényt teszteli abban az esetben, ha a kapott `startValue` 0 | :heavy_check_mark: |
 | getValueTest | A `GameBoard` `getValue` függvényét teszteli  | :heavy_check_mark: |
 | saveGameBoardTest | A `GameBoard` pontszámának mentését ellenőrző teszteset | :heavy_check_mark: |
 | moveTest | Egy mezőn lévő érték lefelé történő mozgatását ellenőrző teszteset | :heavy_check_mark: |
