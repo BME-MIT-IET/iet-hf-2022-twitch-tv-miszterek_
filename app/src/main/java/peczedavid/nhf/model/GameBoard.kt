@@ -143,7 +143,7 @@ class GameBoard() {
             summedHelper[Utils.getIndex(end)] = true
             shouldSpawnNewTile = true
             points += endValue * 2
-            return MovementInfo(start, end, startValue, startValue*2, true)
+            return MovementInfo(start, end, startValue, startValue*2)
         }
 
         // Can move
@@ -209,7 +209,7 @@ class GameBoard() {
                 break
         }
 
-        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue, movementInfo.sum)
+        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue)
     }
 
     private fun pushTileUp(i: Int, j: Int) : MovementInfo {
@@ -225,7 +225,7 @@ class GameBoard() {
                 break
         }
 
-        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue, movementInfo.sum)
+        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue)
     }
 
     private fun pushTileLeft(i: Int, j: Int): MovementInfo {
@@ -241,7 +241,7 @@ class GameBoard() {
                 break
         }
 
-        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue, movementInfo.sum)
+        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue)
     }
 
     private fun pushTileRight(i: Int, j: Int): MovementInfo {
@@ -257,7 +257,7 @@ class GameBoard() {
                 break
         }
 
-        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue, movementInfo.sum)
+        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue)
     }
 
     private fun saveGameBoard() {
@@ -281,6 +281,42 @@ class GameBoard() {
         }
     }
 
+    private fun moveBoardRight() {
+        for(i in 0..3) {
+            for(j in 3 downTo 0) {
+                val movementInfo = pushTileRight(i, j)
+                insertAnimation(Utils.getIndex(i, j), movementInfo)
+            }
+        }
+    }
+
+    private fun moveBoardLeft() {
+        for(i in 0..3) {
+            for(j in 0..3) {
+                val movementInfo = pushTileLeft(i, j)
+                insertAnimation(Utils.getIndex(i, j), movementInfo)
+            }
+        }
+    }
+
+    private fun moveBoardUp() {
+        for(j in 0..3) {
+            for(i in 0..3) {
+                val movementInfo = pushTileUp(i, j)
+                insertAnimation(Utils.getIndex(i, j), movementInfo)
+            }
+        }
+    }
+
+    private fun moveBoardDown() {
+        for(j in 0..3) {
+            for(i in 3 downTo 0) {
+                val movementInfo = pushTileDown(i, j)
+                insertAnimation(Utils.getIndex(i, j), movementInfo)
+            }
+        }
+    }
+
     fun move(direction: Direction): MutableList<MovementInfo> {
         clearAnimations()
         resetSummedHelper()
@@ -290,41 +326,13 @@ class GameBoard() {
         shouldSpawnNewTile = false
 
         when(direction) {
-            Direction.RIGHT -> {
-                for(i in 0..3) {
-                    for(j in 3 downTo 0) {
-                        val movementInfo = pushTileRight(i, j)
-                        insertAnimation(Utils.getIndex(i, j), movementInfo)
-                    }
-                }
-            }
+            Direction.RIGHT -> moveBoardRight()
 
-            Direction.LEFT -> {
-                for(i in 0..3) {
-                    for(j in 0..3) {
-                        val movementInfo = pushTileLeft(i, j)
-                        insertAnimation(Utils.getIndex(i, j), movementInfo)
-                    }
-                }
-            }
+            Direction.LEFT -> moveBoardLeft()
 
-            Direction.UP -> {
-                for(j in 0..3) {
-                    for(i in 0..3) {
-                        val movementInfo = pushTileUp(i, j)
-                        insertAnimation(Utils.getIndex(i, j), movementInfo)
-                    }
-                }
-            }
+            Direction.UP -> moveBoardUp()
 
-            Direction.DOWN -> {
-                for(j in 0..3) {
-                    for(i in 3 downTo 0) {
-                        val movementInfo = pushTileDown(i, j)
-                        insertAnimation(Utils.getIndex(i, j), movementInfo)
-                    }
-                }
-            }
+            Direction.DOWN ->  moveBoardDown()
         }
 
         if(shouldSpawnNewTile)

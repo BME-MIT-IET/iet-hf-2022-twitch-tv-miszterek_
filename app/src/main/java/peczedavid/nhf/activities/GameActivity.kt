@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.widget.LinearLayout
@@ -72,10 +71,6 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    private fun toPixels(dps: Int) : Int {
-        return (dps * binding.parentLayout.context.resources.displayMetrics.density + 0.5F).toInt()
-    }
-
     private fun handleBackButtonState() {
         val uri = if(gameBoard.gameEnded)
             "@color/grey"
@@ -101,8 +96,9 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun initSizes() {
-        tileSize = toPixels(70)
-        padding = toPixels(10).toFloat()
+        val density = binding.parentLayout.context.resources.displayMetrics.density
+        tileSize = Utils.toPixels(70, density)
+        padding = Utils.toPixels(10, density).toFloat()
         moveDist = tileSize + padding
 
         val offsetHelper = GridTileBinding.inflate(layoutInflater).root
@@ -270,48 +266,63 @@ class GameActivity : AppCompatActivity() {
             val diffX = moveEvent?.x?.minus(downEvent!!.x) ?: 0.0F
             val diffY = moveEvent?.y?.minus(downEvent!!.y) ?: 0.0F
 
+            return handleFling(downEvent, moveEvent, velocityX, velocityY, diffX, diffY)
+        }
+
+        private fun handleFling(downEvent: MotionEvent?, moveEvent: MotionEvent?, velocityX: Float, velocityY: Float,
+                                diffX: Float, diffY : Float) : Boolean {
             return if (abs(diffX) > abs(diffY)) {
-                if (abs(diffX) > swipeThreshold) {
-                    if (diffX > 0) {
-                        Log.d("GameActivity", "Swipe right")
-                        animateTiles(gameBoard.move(Direction.RIGHT))
-                        if(gameBoard.gameEnded) {
-                            saveRunToDatabase()
-                            handleBackButtonState()
-                        }
-                    } else {
-                        Log.d("GameActivity", "Swipe left")
-                        animateTiles(gameBoard.move(Direction.LEFT))
-                        if(gameBoard.gameEnded) {
-                            saveRunToDatabase()
-                            handleBackButtonState()
-                        }
-                    }
-                    true
-                } else {
-                    super.onFling(downEvent, moveEvent, velocityX, velocityY)
-                }
+                handleHorizontalFling(downEvent, moveEvent, velocityX, velocityY, diffX)
             } else {
-                if (abs(diffY) > swipeThreshold) {
-                    if (diffY > 0) {
-                        Log.d("GameActivity", "Swipe down")
-                        animateTiles(gameBoard.move(Direction.DOWN))
-                        if(gameBoard.gameEnded) {
-                            saveRunToDatabase()
-                            handleBackButtonState()
-                        }
-                    } else {
-                        Log.d("GameActivity", "Swipe up")
-                        animateTiles(gameBoard.move(Direction.UP))
-                        if(gameBoard.gameEnded) {
-                            saveRunToDatabase()
-                            handleBackButtonState()
-                        }
+                handleVerticalFling(downEvent, moveEvent, velocityX, velocityY, diffY)
+            }
+        }
+
+        private fun handleVerticalFling(downEvent: MotionEvent?, moveEvent: MotionEvent?, velocityX: Float, velocityY: Float,
+                                        diffY : Float) : Boolean {
+            return if (abs(diffY) > swipeThreshold) {
+                if (diffY > 0) {
+                    //Log.d("GameActivity", "Swipe down")
+                    animateTiles(gameBoard.move(Direction.DOWN))
+                    if(gameBoard.gameEnded) {
+                        saveRunToDatabase()
+                        handleBackButtonState()
                     }
-                    true
                 } else {
-                    super.onFling(downEvent, moveEvent, velocityX, velocityY)
+                    //Log.d("GameActivity", "Swipe up")
+                    animateTiles(gameBoard.move(Direction.UP))
+                    if(gameBoard.gameEnded) {
+                        saveRunToDatabase()
+                        handleBackButtonState()
+                    }
                 }
+                true
+            } else {
+                super.onFling(downEvent, moveEvent, velocityX, velocityY)
+            }
+        }
+
+        private fun handleHorizontalFling(downEvent: MotionEvent?, moveEvent: MotionEvent?, velocityX: Float, velocityY: Float,
+                                          diffX: Float) : Boolean {
+           return if (abs(diffX) > swipeThreshold) {
+                if (diffX > 0) {
+                    //Log.d("GameActivity", "Swipe right")
+                    animateTiles(gameBoard.move(Direction.RIGHT))
+                    if(gameBoard.gameEnded) {
+                        saveRunToDatabase()
+                        handleBackButtonState()
+                    }
+                } else {
+                    //Log.d("GameActivity", "Swipe left")
+                    animateTiles(gameBoard.move(Direction.LEFT))
+                    if(gameBoard.gameEnded) {
+                        saveRunToDatabase()
+                        handleBackButtonState()
+                    }
+                }
+                true
+            } else {
+                super.onFling(downEvent, moveEvent, velocityX, velocityY)
             }
         }
     }

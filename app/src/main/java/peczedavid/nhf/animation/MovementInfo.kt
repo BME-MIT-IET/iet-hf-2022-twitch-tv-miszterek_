@@ -3,9 +3,11 @@ package peczedavid.nhf.animation
 import peczedavid.nhf.model.Point
 
 data class MovementInfo (
-    var start: Point,
-    var end: Point,
-    var startValue: Int,
-    var endValue: Int,
-    var sum: Boolean = false
-)
+    val start: Point,
+    val end: Point,
+    val startValue: Int,
+    val endValue: Int,
+) {
+    val sum : Boolean
+        get() = startValue != endValue
+}
