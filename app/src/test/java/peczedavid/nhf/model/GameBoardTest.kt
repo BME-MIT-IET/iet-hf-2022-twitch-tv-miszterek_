@@ -64,4 +64,15 @@ class GameBoardTest {
         assertEquals(testGameBoardValue, 0)
     }
 
+    @Test
+    fun saveGameBoardTest() {
+
+        testGameBoard.pointsBefore = 10
+        testGameBoard.points = 20
+
+        testGameBoard.saveGameBoard()
+
+        assertEquals(testGameBoard.pointsBefore, testGameBoard.points)
+    }
+
 }

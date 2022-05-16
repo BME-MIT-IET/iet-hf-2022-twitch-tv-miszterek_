@@ -260,7 +260,7 @@ class GameBoard() {
         return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue, movementInfo.sum)
     }
 
-    private fun saveGameBoard() {
+    public fun saveGameBoard() {
         gameBoardBefore.clear()
 
         for(i in 0..15) {
