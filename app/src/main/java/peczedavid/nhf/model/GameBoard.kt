@@ -127,7 +127,7 @@ class GameBoard() {
         animations.removeAt(idx + 1)
     }
 
-    private fun moveTile(start: Point, end: Point) : MovementInfo {
+    public fun moveTile(start: Point, end: Point) : MovementInfo {
         val startValue = gameBoard[Utils.getIndex(start)]
         val endValue = gameBoard[Utils.getIndex(end)]
 

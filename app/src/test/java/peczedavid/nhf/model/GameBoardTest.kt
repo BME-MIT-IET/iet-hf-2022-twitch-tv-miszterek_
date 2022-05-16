@@ -46,4 +46,19 @@ class GameBoardTest {
         assertThat(summedHelperTestList, equalTo(testGameBoard.summedHelper))
     }
 
+    @Test
+    fun moveTileWith0StartValueTest() {
+        var testGameBoard = GameBoard()
+
+        val testStartValue = Point(0F, 0F)
+        val testEndValue = testStartValue
+
+        var movementInfoWith0StartValue =
+        testGameBoard.moveTile(testStartValue, testEndValue)
+
+        var testMovementInfoWith0StartValue = MovementInfo(testStartValue, testEndValue, 0, 0)
+
+        assertThat(movementInfoWith0StartValue, equalTo(testMovementInfoWith0StartValue))
+    }
+
 }
