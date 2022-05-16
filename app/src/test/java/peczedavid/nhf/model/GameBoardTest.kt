@@ -1,23 +1,21 @@
 package peczedavid.nhf.model
 
 import android.util.Log
+import junit.framework.TestCase.assertEquals
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.core.IsEqual
 import org.hamcrest.core.IsEqual.equalTo
 
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import peczedavid.nhf.animation.MovementInfo
 
 class GameBoardTest {
 
+    private var testGameBoard = GameBoard()
+
     @Test
     fun initBoardTest() {
 
-        var testGameBoard = GameBoard()
         testGameBoard.initBoard()
-
 
         var gameBoardFields: MutableList<Int> = mutableListOf()
 
@@ -32,9 +30,7 @@ class GameBoardTest {
     @Test
     fun resetSummedHelperTest() {
 
-        var testGameBoard = GameBoard()
         testGameBoard.resetSummedHelper()
-
 
         var summedHelperTestList: MutableList<Boolean> = mutableListOf()
 
@@ -48,7 +44,6 @@ class GameBoardTest {
 
     @Test
     fun moveTileWith0StartValueTest() {
-        var testGameBoard = GameBoard()
 
         val testStartValue = Point(0F, 0F)
         val testEndValue = testStartValue
@@ -59,6 +54,14 @@ class GameBoardTest {
         var testMovementInfoWith0StartValue = MovementInfo(testStartValue, testEndValue, 0, 0)
 
         assertThat(movementInfoWith0StartValue, equalTo(testMovementInfoWith0StartValue))
+    }
+
+    @Test
+    fun getValueTest() {
+
+        testGameBoard.initBoard()
+        var testGameBoardValue = testGameBoard.getValue(2, 2)
+        assertEquals(testGameBoardValue, 0)
     }
 
 }
