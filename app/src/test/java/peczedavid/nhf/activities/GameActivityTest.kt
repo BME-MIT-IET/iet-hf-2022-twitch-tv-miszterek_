@@ -47,8 +47,7 @@ class GameActivityTest {
 
         dbDao.insert(newRun)
 
-        val testDBlist = dbDao.getAll()
-        assertThat(testDBlist.get(0), equalTo(newRun))
-
+        val testDbList = dbDao.getAll()
+        assertThat(testDbList.get(0), equalTo(newRun))
     }
 }
