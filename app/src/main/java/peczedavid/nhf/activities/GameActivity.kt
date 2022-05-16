@@ -71,10 +71,6 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    private fun toPixels(dps: Int) : Int {
-        return (dps * binding.parentLayout.context.resources.displayMetrics.density + 0.5F).toInt()
-    }
-
     private fun handleBackButtonState() {
         val uri = if(gameBoard.gameEnded)
             "@color/grey"
@@ -100,8 +96,9 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun initSizes() {
-        tileSize = toPixels(70)
-        padding = toPixels(10).toFloat()
+        val density = binding.parentLayout.context.resources.displayMetrics.density
+        tileSize = Utils.toPixels(70, density)
+        padding = Utils.toPixels(10, density).toFloat()
         moveDist = tileSize + padding
 
         val offsetHelper = GridTileBinding.inflate(layoutInflater).root
