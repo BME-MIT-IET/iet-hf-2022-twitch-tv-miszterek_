@@ -12,6 +12,8 @@ class GameBoardTest {
 
     private var testGameBoard = GameBoard()
 
+    //a GameBoard osztály initBoard() függvényét teszteli
+    //összahesonlítja egy manuálisan létrehozott mátrixxal
     @Test
     fun initBoardTest() {
 
@@ -27,6 +29,8 @@ class GameBoardTest {
         assertThat(gameBoardFields, equalTo(testGameBoard.gameBoard))
     }
 
+    //a GameBoard osztály resetSummedHelper() függvényét teszteli
+    //összahesonlítja egy manuálisan létrehozott mátrixxal
     @Test
     fun resetSummedHelperTest() {
 
@@ -58,6 +62,8 @@ class GameBoardTest {
         assertThat(movementInfoWith0StartValue, equalTo(testMovementInfoWith0StartValue))
     }
 
+    //a GameBoard osztály getValue() függvényét teszteli
+    //összahesonlítja egy manuálisan létrehozott 0 "tartalmú elemmel"
     @Test
     fun getValueTest() {
 
@@ -66,6 +72,8 @@ class GameBoardTest {
         assertEquals(testGameBoardValue, 0)
     }
 
+    //a GameBoard osztály saveGameBoard() függvényét teszteli
+    //megnézi, hogy a pointsBefore és a points változó értéke egyenlővé válik e a mentés hatására
     @Test
     fun saveGameBoardTest() {
 
@@ -77,6 +85,8 @@ class GameBoardTest {
         assertEquals(testGameBoard.pointsBefore, testGameBoard.points)
     }
 
+    //a GameBoard osztály move(direction) és a pushTileDown(i, j) függvényét teszteli
+    //összahesonlítja hogy az egész tábla mozgatása és csak 1 elem mozgatása ugyan azt az eredményt hozza-e
     @Test
     fun moveTest() {
 

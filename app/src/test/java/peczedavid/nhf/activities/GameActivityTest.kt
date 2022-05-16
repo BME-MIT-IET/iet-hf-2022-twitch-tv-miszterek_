@@ -21,6 +21,7 @@ class GameActivityTest {
     private lateinit var dbDao: GameRunDao
     private lateinit var db: LeaderboardDatabase
 
+    //teszt előtt létrehozzuk a minta adatbázisunkat, amibe mentjük az adatot
     @Before
     fun setUp() {
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -31,12 +32,14 @@ class GameActivityTest {
         dbDao = db.gameRunDao()
     }
 
+    //teszt után lezárjuk az adatbázist
     @After
     @Throws(IOException::class)
     fun closeDb() {
         db.close()
     }
 
+    //teszteljük az adatbázis működését, az elem beszúrása és lekérése után visszakpjuk-e az adatot
     @Test
     @Throws(Exception::class)
     fun saveRunToDatabaseTest() {
