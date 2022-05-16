@@ -21,6 +21,7 @@ class GameLogicTest {
 
     @get:Rule
     val activityRule = ActivityScenarioRule(GameActivity::class.java)
+    private val time = 1000L
 
     @Before
     fun init() {
@@ -75,8 +76,7 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeDown())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 12)), withParentIndex(0)))
             .check(isCompletelyLeftOf(withParent(withId(910 + 13))))
@@ -91,8 +91,7 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
             .check(isCompletelyRightOf(withParent(withId(910 + 2))))
@@ -107,8 +106,7 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeLeft())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
@@ -123,8 +121,7 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeUp())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
@@ -139,8 +136,7 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
             .check(isCompletelyRightOf(withParent(withId(910 + 2))))
@@ -149,8 +145,7 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
@@ -171,8 +166,7 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
             .check(isCompletelyRightOf(withParent(withId(910 + 2))))
@@ -181,8 +175,7 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeDown())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
@@ -214,8 +207,7 @@ class GameLogicTest {
 
         onView(withId(R.id.parent_layout))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(withId(R.id.pointsTv))
             .check(matches(withText("Points: 4")))
@@ -235,15 +227,13 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 3)), withParentIndex(0)))
             .check(matches(isDisplayed()))
             .check(isCompletelyRightOf(withParent(withId(910 + 2))))
             .check(isCompletelyAbove(withParent(withId(910 + 7))))
             .check(matches(withText("4")))
-
 
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(matches(isDisplayed()))
@@ -265,8 +255,7 @@ class GameLogicTest {
 
         onView(withId(R.id.parent_layout))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(withId(R.id.pointsTv))
             .check(matches(withText("Points: 4")))
@@ -283,8 +272,7 @@ class GameLogicTest {
 
         onView(withId(R.id.parent_layout))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(withText("4"))
             .check(matches(isDisplayed()))
@@ -293,8 +281,7 @@ class GameLogicTest {
 
         onView(withId(R.id.newGameBtn))
             .perform(click())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(matches(isDisplayed()))
@@ -313,8 +300,7 @@ class GameLogicTest {
 
         onView(withId(R.id.parent_layout))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(withText("4"))
             .check(matches(isDisplayed()))
@@ -323,8 +309,7 @@ class GameLogicTest {
 
         onView(withId(R.id.stepBackBtn))
             .perform(click())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(matches(isDisplayed()))
@@ -347,8 +332,7 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
@@ -362,8 +346,7 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeLeft())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
@@ -380,12 +363,10 @@ class GameLogicTest {
     @Test
     fun timer() {
         activityRule.scenario.onActivity { it.resetTimer() }
-
         Thread.sleep(100)
 
         onView(withId(R.id.timeTv))
             .check(matches(withText("00:00:01")))
-
         Thread.sleep(1100)
 
         onView(withId(R.id.timeTv))
@@ -422,8 +403,7 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
@@ -473,8 +453,7 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(allOf(withParent(withId(910 + 0)), withParentIndex(0)))
             .check(isCompletelyLeftOf(withParent(withId(910 + 1))))
@@ -505,16 +484,14 @@ class GameLogicTest {
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(withId(R.id.pointsTv))
             .check(matches(withText("Points: 8")))
 
         onView(withId(R.id.gameBoard))
             .perform(ViewActions.swipeRight())
-
-        Thread.sleep(1000)
+        Thread.sleep(time)
 
         onView(withId(R.id.pointsTv))
             .check(matches(withText("Points: 16")))
