@@ -28,4 +28,22 @@ class GameBoardTest {
 
         assertThat(gameBoardFields, equalTo(testGameBoard.gameBoard))
     }
+
+    @Test
+    fun resetSummedHelperTest() {
+
+        var testGameBoard = GameBoard()
+        testGameBoard.resetSummedHelper()
+
+
+        var summedHelperTestList: MutableList<Boolean> = mutableListOf()
+
+        summedHelperTestList.addAll(mutableListOf(false, false, false, false))
+        summedHelperTestList.addAll(mutableListOf(false, false, false, false))
+        summedHelperTestList.addAll(mutableListOf(false, false, false, false))
+        summedHelperTestList.addAll(mutableListOf(false, false, false, false))
+
+        assertThat(summedHelperTestList, equalTo(testGameBoard.summedHelper))
+    }
+
 }

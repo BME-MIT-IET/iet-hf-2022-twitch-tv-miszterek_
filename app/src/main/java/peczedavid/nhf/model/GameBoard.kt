@@ -9,7 +9,7 @@ class GameBoard() {
     var gameBoardBefore: MutableList<Int> = mutableListOf()
     public var gameBoard: MutableList<Int> = mutableListOf()
 
-    private var summedHelper: MutableList<Boolean> = mutableListOf()
+    public var summedHelper: MutableList<Boolean> = mutableListOf()
 
     private var animations: MutableList<MovementInfo> = mutableListOf()
 
@@ -108,7 +108,7 @@ class GameBoard() {
         gameBoard.addAll(mutableListOf(0, 0, 0, 0))
     }
 
-    private fun resetSummedHelper() {
+    public fun resetSummedHelper() {
         summedHelper.clear()
         summedHelper.addAll(mutableListOf(false, false, false, false))
         summedHelper.addAll(mutableListOf(false, false, false, false))
