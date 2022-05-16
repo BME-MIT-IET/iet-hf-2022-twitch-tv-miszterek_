@@ -143,7 +143,7 @@ class GameBoard() {
             summedHelper[Utils.getIndex(end)] = true
             shouldSpawnNewTile = true
             points += endValue * 2
-            return MovementInfo(start, end, startValue, startValue*2, true)
+            return MovementInfo(start, end, startValue, startValue*2)
         }
 
         // Can move
@@ -209,7 +209,7 @@ class GameBoard() {
                 break
         }
 
-        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue, movementInfo.sum)
+        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue)
     }
 
     private fun pushTileUp(i: Int, j: Int) : MovementInfo {
@@ -225,7 +225,7 @@ class GameBoard() {
                 break
         }
 
-        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue, movementInfo.sum)
+        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue)
     }
 
     private fun pushTileLeft(i: Int, j: Int): MovementInfo {
@@ -241,7 +241,7 @@ class GameBoard() {
                 break
         }
 
-        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue, movementInfo.sum)
+        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue)
     }
 
     private fun pushTileRight(i: Int, j: Int): MovementInfo {
@@ -257,7 +257,7 @@ class GameBoard() {
                 break
         }
 
-        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue, movementInfo.sum)
+        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue)
     }
 
     private fun saveGameBoard() {
