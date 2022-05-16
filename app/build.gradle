@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "peczedavid.nhf"
         minSdk 21
-        targetSdk 29
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -46,6 +46,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 
     // Required -- JUnit 4 framework
@@ -68,4 +69,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+
+
 }

@@ -2,6 +2,23 @@
 
 A unit-teszteket Android Studioban végeztük az IDE beépített tesztelési lehetőségeivel, és könyvtáraival (pl. JUnit).
 
+## Az adatbázissal kapcsolatos teszteset
+
+| Teszt eset neve | Leírás | :heavy_check_mark: / :x: |
+|:---------------:|:------:|:-----------:|
+| saveRunToDatabaseTest | Egy játék során szerzett pontok és idő mentése az adatbázisba | :heavy_check_mark: |
+
+## A játéklogikával kapcsolatos tesztesetek
+
+| Teszt eset neve | Leírás | :heavy_check_mark: / :x: |
+|:---------------:|:------:|:-----------:|
+| initBoardTest | leírás | :heavy_check_mark: |
+| resetSummedHelperTest | leírás | :heavy_check_mark: | 
+| moveTileWith0StartValueTest | leírás | :heavy_check_mark: |
+| getValueTest | leírás | :heavy_check_mark: |
+| saveGameBoardTest | leírás | :heavy_check_mark: |
+| moveTest | leírás | :heavy_check_mark: |
+
 ## Az Android Studio által generált Gradle test report
 
 ![](images/teszt_osszesites.png)
