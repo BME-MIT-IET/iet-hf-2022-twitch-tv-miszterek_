@@ -12,12 +12,12 @@ A unit-teszteket Android Studioban végeztük az IDE beépített tesztelési leh
 
 | Teszt eset neve | Leírás | :x: / :heavy_check_mark: |
 |:---------------:|:------:|:-----------:|
-| initBoardTest | leírás | :heavy_check_mark: |
-| resetSummedHelperTest | leírás | :heavy_check_mark: | 
-| moveTileWith0StartValueTest | leírás | :heavy_check_mark: |
-| getValueTest | leírás | :heavy_check_mark: |
-| saveGameBoardTest | leírás | :heavy_check_mark: |
-| moveTest | leírás | :heavy_check_mark: |
+| initBoardTest | A `GameBoard` objektum `gameBoard` listájának inicializálását teszteli | :heavy_check_mark: |
+| resetSummedHelperTest | A `GameBoard` objektum `summedHelper` listájának visszaállítását teszteli | :heavy_check_mark: | 
+| moveTileWith0StartValueTest | A `moveTile()` függvény visszatérési értékét teszteli abban az esetben, ha a kapott `startValue` 0 | :heavy_check_mark: |
+| getValueTest | A `GameBoard` `getValue` függvényét teszteli  | :heavy_check_mark: |
+| saveGameBoardTest | A `GameBoard` pontszámának mentését ellenőrző teszteset | :heavy_check_mark: |
+| moveTest | Egy mezőn lévő érték lefelé történő mozgatását ellenőrző teszteset | :heavy_check_mark: |
 
 ## Az Android Studio által generált Gradle test report
 
