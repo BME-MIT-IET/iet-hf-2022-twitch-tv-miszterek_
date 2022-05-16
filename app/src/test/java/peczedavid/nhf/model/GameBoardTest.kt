@@ -96,12 +96,9 @@ class GameBoardTest {
         testGameBoard.move(Direction.DOWN)
         var movedField = testGameBoard.move(Direction.DOWN)
 
-
-
-        //exampleGameBoard.pushTileDown(2, 3)
         var exampleMove = exampleGameBoard.pushTileDown(3, 3)
 
-            assertThat(movedField.get(Utils.getIndex(3, 3)), equalTo(exampleMove))
-    }
 
+        assertThat(movedField.get(Utils.getIndex(3, 3)), equalTo(exampleMove))
+    }
 }

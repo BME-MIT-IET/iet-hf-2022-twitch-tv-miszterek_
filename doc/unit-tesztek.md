@@ -2,15 +2,28 @@
 
 A unit-teszteket Android Studioban végeztük az IDE beépített tesztelési lehetőségeivel, és könyvtáraival (pl. JUnit).
 
-## 1. Unit-teszt
+## Az Android Studio által generált Gradle test report
 
-`saveRunToDatabaseTest`
+![](images/teszt_osszesites.png)
 
-![](images/teszt1.png)
+## Az Android Studio által generált Coverage Summary
 
-Egy adott játékmenet után az eredmények egy adatbázisba kerülnek mentésre. Ez a Unit-teszt a helyes mentési folyamatot kívánta ellenőrizni.
+Az `nhf` package szintjén:
 
-- Egy tesztadatbázis előkészítése után manuálisan hoztunk létre egy `GameRun` rekordot, amit a `GameRunDao` osztály függvényei segítségével szúrtuk be, majd kérdeztük le a tesztadatbázisból.
-- A kapott eredmény valóban az általunk elmentett `GameRun` rekorddal egyezik.
+![](images/teszt_coverage_1.png)
 
-![](images/teszt1_eredmeny.png)
+Az `nhf.model` package szintjén:
+
+![](images/teszt_coverage_2.png)
+
+## Az Android Studio által generált Overall Coverage Summary
+
+Az `nhf` package szintjén:
+
+![](images/coverage_summary_1.png)
+
+Az `nhf.model` package szintjén:
+
+![](images/coverage_summary_2.png)
+
+
