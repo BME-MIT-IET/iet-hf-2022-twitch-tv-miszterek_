@@ -7,7 +7,7 @@ import peczedavid.nhf.animation.MovementInfo
 
 class GameBoard() {
     var gameBoardBefore: MutableList<Int> = mutableListOf()
-    private var gameBoard: MutableList<Int> = mutableListOf()
+    public var gameBoard: MutableList<Int> = mutableListOf()
 
     private var summedHelper: MutableList<Boolean> = mutableListOf()
 
@@ -37,7 +37,7 @@ class GameBoard() {
         return cloneBoard
     }
 
-    private fun isMovement(movementInfo: MovementInfo) : Boolean {
+    public fun isMovement(movementInfo: MovementInfo) : Boolean {
         val startX =  movementInfo.start.x
         val startY =  movementInfo.start.y
         val endX =  movementInfo.end.x
@@ -100,7 +100,7 @@ class GameBoard() {
         gameEnded = false
     }
 
-    private fun initBoard() {
+    public fun initBoard() {
         gameBoard.clear()
         gameBoard.addAll(mutableListOf(0, 0, 0, 0))
         gameBoard.addAll(mutableListOf(0, 0, 0, 0))

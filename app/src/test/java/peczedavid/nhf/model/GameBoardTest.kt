@@ -1,74 +1,31 @@
 package peczedavid.nhf.model
 
-import org.junit.Assert.*
+import android.util.Log
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.core.IsEqual
+import org.hamcrest.core.IsEqual.equalTo
 
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import peczedavid.nhf.animation.MovementInfo
 
 class GameBoardTest {
 
-    @Before
-    fun setUp() {
-    }
-
-    @After
-    fun tearDown() {
-    }
-
     @Test
-    fun getGameBoardBefore() {
-    }
+    fun initBoardTest() {
 
-    @Test
-    fun setGameBoardBefore() {
-    }
+        var testGameBoard = GameBoard()
+        testGameBoard.initBoard()
 
-    @Test
-    fun getPointsBefore() {
-    }
 
-    @Test
-    fun setPointsBefore() {
-    }
+        var gameBoardFields: MutableList<Int> = mutableListOf()
 
-    @Test
-    fun getPoints() {
-    }
+        gameBoardFields.addAll(mutableListOf(0, 0, 0, 0))
+        gameBoardFields.addAll(mutableListOf(0, 0, 0, 0))
+        gameBoardFields.addAll(mutableListOf(0, 0, 0, 0))
+        gameBoardFields.addAll(mutableListOf(0, 0, 0, 0))
 
-    @Test
-    fun setPoints() {
-    }
-
-    @Test
-    fun getGameEnded() {
-    }
-
-    @Test
-    fun setGameEnded() {
-    }
-
-    @Test
-    fun newGame() {
-    }
-
-    @Test
-    fun stepBack() {
-    }
-
-    @Test
-    fun move() {
-    }
-
-    @Test
-    fun loadState() {
-    }
-
-    @Test
-    fun saveState() {
-    }
-
-    @Test
-    fun getValue() {
+        assertThat(gameBoardFields, equalTo(testGameBoard.gameBoard))
     }
 }
