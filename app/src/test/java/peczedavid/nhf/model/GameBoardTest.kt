@@ -103,7 +103,6 @@ class GameBoardTest {
         exampleGameBoard.gameBoard = gameBoardFields
         testGameBoard = exampleGameBoard.clone()
 
-
         GameBoard.gameEndHelper = 0
         var movedField = testGameBoard.move(Direction.DOWN)
 
