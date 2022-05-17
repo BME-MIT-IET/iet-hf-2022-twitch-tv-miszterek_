@@ -1,12 +1,15 @@
 package peczedavid.nhf.model
 
-import android.util.Log
 import junit.framework.TestCase.assertEquals
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsEqual.equalTo
 
 import org.junit.Test
 import peczedavid.nhf.animation.MovementInfo
+import peczedavid.nhf.model.Direction
+import peczedavid.nhf.model.GameBoard
+import peczedavid.nhf.model.Point
+import peczedavid.nhf.model.Utils
 
 class GameBoardTest {
 
@@ -108,7 +111,7 @@ class GameBoardTest {
 
         var exampleMove = exampleGameBoard.pushTileDown(2, 3)
 
-
+        println("asd")
         assertThat(movedField.get(Utils.getIndex(2, 3)), equalTo(exampleMove))
     }
 }
