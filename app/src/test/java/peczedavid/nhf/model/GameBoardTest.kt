@@ -101,16 +101,15 @@ class GameBoardTest {
         exampleGameBoard.initBoard()
 
         exampleGameBoard.gameBoard = gameBoardFields
-        testGameBoard.gameBoard = gameBoardFields
+        testGameBoard = exampleGameBoard.clone()
 
 
         GameBoard.gameEndHelper = 0
-        testGameBoard.move(Direction.DOWN)
         var movedField = testGameBoard.move(Direction.DOWN)
 
-        var exampleMove = exampleGameBoard.pushTileDown(3, 3)
+        var exampleMove = exampleGameBoard.pushTileDown(2, 3)
 
 
-        assertThat(movedField.get(Utils.getIndex(3, 3)), equalTo(exampleMove))
+        assertThat(movedField.get(Utils.getIndex(2, 3)), equalTo(exampleMove))
     }
 }

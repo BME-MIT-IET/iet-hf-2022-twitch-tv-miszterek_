@@ -28,7 +28,7 @@ class GameBoard() {
         newGame()
     }
 
-    private fun clone() : GameBoard {
+    fun clone() : GameBoard {
         val cloneBoard = GameBoard()
 
         for(i in 0..15)
