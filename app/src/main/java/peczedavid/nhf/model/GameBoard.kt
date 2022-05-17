@@ -3,7 +3,9 @@ package peczedavid.nhf.model
 import android.app.Activity
 import android.content.Context
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import peczedavid.nhf.animation.MovementInfo
+
 
 class GameBoard() {
     var gameBoardBefore: MutableList<Int> = mutableListOf()
@@ -14,6 +16,9 @@ class GameBoard() {
     public var animations: MutableList<MovementInfo> = mutableListOf()
 
     private var shouldSpawnNewTile = false
+
+    var uiTestNextTileValue = 2
+    var uiTestMode = false
 
     companion object {
         var gameEndHelper = 1
@@ -143,7 +148,7 @@ class GameBoard() {
             summedHelper[Utils.getIndex(end)] = true
             shouldSpawnNewTile = true
             points += endValue * 2
-            return MovementInfo(start, end, startValue, startValue*2, true)
+            return MovementInfo(start, end, startValue, startValue*2)
         }
 
         // Can move
@@ -157,7 +162,7 @@ class GameBoard() {
         return MovementInfo(start, start, startValue, startValue)
     }
 
-    private fun spawnRandom(newValue: Int? = null, newIndex: Int? = null) : MovementInfo {
+    fun spawnRandom(newValue: Int? = null, newIndex: Int? = null) : MovementInfo {
         var spawned = false
 
         var value = 2
@@ -170,19 +175,34 @@ class GameBoard() {
             value = newValue
         }
 
+        if (uiTestMode) {
+            value = uiTestNextTileValue
+        }
+
         val countEmpty = gameBoard.count { v -> v == 0 }
 
         var index = -1
 
         if(countEmpty > 0) {
-            while(!spawned) {
-                index = (0..15).random()
-                if (newIndex != null) {
-                    index = newIndex
+            if (uiTestMode) {
+                var firstIndex = 0
+                while(!spawned) {
+                    index = firstIndex++
+                    if(gameBoard[index] == 0) {
+                        gameBoard[index] = value
+                        spawned = true
+                    }
                 }
-                if(gameBoard[index] == 0) {
-                    gameBoard[index] = value
-                    spawned = true
+            } else {
+                while(!spawned) {
+                    index = (0..15).random()
+                    if (newIndex != null) {
+                        index = newIndex
+                    }
+                    if(gameBoard[index] == 0) {
+                        gameBoard[index] = value
+                        spawned = true
+                    }
                 }
             }
         }
@@ -209,7 +229,7 @@ class GameBoard() {
                 break
         }
 
-        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue, movementInfo.sum)
+        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue)
     }
 
     private fun pushTileUp(i: Int, j: Int) : MovementInfo {
@@ -225,7 +245,7 @@ class GameBoard() {
                 break
         }
 
-        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue, movementInfo.sum)
+        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue)
     }
 
     private fun pushTileLeft(i: Int, j: Int): MovementInfo {
@@ -241,7 +261,7 @@ class GameBoard() {
                 break
         }
 
-        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue, movementInfo.sum)
+        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue)
     }
 
     private fun pushTileRight(i: Int, j: Int): MovementInfo {
@@ -257,7 +277,7 @@ class GameBoard() {
                 break
         }
 
-        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue, movementInfo.sum)
+        return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue)
     }
 
     public fun saveGameBoard() {
@@ -281,6 +301,42 @@ class GameBoard() {
         }
     }
 
+    private fun moveBoardRight() {
+        for(i in 0..3) {
+            for(j in 3 downTo 0) {
+                val movementInfo = pushTileRight(i, j)
+                insertAnimation(Utils.getIndex(i, j), movementInfo)
+            }
+        }
+    }
+
+    private fun moveBoardLeft() {
+        for(i in 0..3) {
+            for(j in 0..3) {
+                val movementInfo = pushTileLeft(i, j)
+                insertAnimation(Utils.getIndex(i, j), movementInfo)
+            }
+        }
+    }
+
+    private fun moveBoardUp() {
+        for(j in 0..3) {
+            for(i in 0..3) {
+                val movementInfo = pushTileUp(i, j)
+                insertAnimation(Utils.getIndex(i, j), movementInfo)
+            }
+        }
+    }
+
+    private fun moveBoardDown() {
+        for(j in 0..3) {
+            for(i in 3 downTo 0) {
+                val movementInfo = pushTileDown(i, j)
+                insertAnimation(Utils.getIndex(i, j), movementInfo)
+            }
+        }
+    }
+
     fun move(direction: Direction): MutableList<MovementInfo> {
         clearAnimations()
         resetSummedHelper()
@@ -290,41 +346,13 @@ class GameBoard() {
         shouldSpawnNewTile = false
 
         when(direction) {
-            Direction.RIGHT -> {
-                for(i in 0..3) {
-                    for(j in 3 downTo 0) {
-                        val movementInfo = pushTileRight(i, j)
-                        insertAnimation(Utils.getIndex(i, j), movementInfo)
-                    }
-                }
-            }
+            Direction.RIGHT -> moveBoardRight()
 
-            Direction.LEFT -> {
-                for(i in 0..3) {
-                    for(j in 0..3) {
-                        val movementInfo = pushTileLeft(i, j)
-                        insertAnimation(Utils.getIndex(i, j), movementInfo)
-                    }
-                }
-            }
+            Direction.LEFT -> moveBoardLeft()
 
-            Direction.UP -> {
-                for(j in 0..3) {
-                    for(i in 0..3) {
-                        val movementInfo = pushTileUp(i, j)
-                        insertAnimation(Utils.getIndex(i, j), movementInfo)
-                    }
-                }
-            }
+            Direction.UP -> moveBoardUp()
 
-            Direction.DOWN -> {
-                for(j in 0..3) {
-                    for(i in 3 downTo 0) {
-                        val movementInfo = pushTileDown(i, j)
-                        insertAnimation(Utils.getIndex(i, j), movementInfo)
-                    }
-                }
-            }
+            Direction.DOWN ->  moveBoardDown()
         }
 
         if(shouldSpawnNewTile)
@@ -339,6 +367,11 @@ class GameBoard() {
     fun loadState(activity: Activity) {
         val sharedPref = activity.getPreferences(Context.MODE_PRIVATE) ?: return
         gameBoard.clear()
+
+        if (uiTestMode) {
+            newGame()
+            return
+        }
 
         if(sharedPref.getInt("gameBoard_element_0", -1) == -1) {
             newGame()
