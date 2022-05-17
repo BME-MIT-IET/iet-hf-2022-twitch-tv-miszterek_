@@ -8,6 +8,10 @@ class Utils {
             return (i * 4) + j
         }
 
+        fun toPixels(dps: Int, density: Float) : Int {
+            return (dps * density + 0.5F).toInt()
+        }
+
         fun getIndex(point: Point) : Int {
             return (point.x.toInt() * 4) + point.y.toInt()
         }
