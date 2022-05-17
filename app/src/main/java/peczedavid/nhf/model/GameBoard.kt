@@ -6,14 +6,14 @@ import android.util.Log
 import androidx.annotation.VisibleForTesting
 import peczedavid.nhf.animation.MovementInfo
 
-class GameBoard {
-    @VisibleForTesting
-    private var gameBoardBefore: MutableList<Int> = mutableListOf()
-    private var gameBoard: MutableList<Int> = mutableListOf()
 
-    private var summedHelper: MutableList<Boolean> = mutableListOf()
+class GameBoard() {
+    var gameBoardBefore: MutableList<Int> = mutableListOf()
+    public var gameBoard: MutableList<Int> = mutableListOf()
 
-    private var animations: MutableList<MovementInfo> = mutableListOf()
+    public var summedHelper: MutableList<Boolean> = mutableListOf()
+
+    public var animations: MutableList<MovementInfo> = mutableListOf()
 
     private var shouldSpawnNewTile = false
 
@@ -33,7 +33,7 @@ class GameBoard {
         newGame()
     }
 
-    private fun clone() : GameBoard {
+    fun clone() : GameBoard {
         val cloneBoard = GameBoard()
 
         for(i in 0..15)
@@ -42,7 +42,7 @@ class GameBoard {
         return cloneBoard
     }
 
-    private fun isMovement(movementInfo: MovementInfo) : Boolean {
+    public fun isMovement(movementInfo: MovementInfo) : Boolean {
         val startX =  movementInfo.start.x
         val startY =  movementInfo.start.y
         val endX =  movementInfo.end.x
@@ -105,7 +105,7 @@ class GameBoard {
         gameEnded = false
     }
 
-    private fun initBoard() {
+    public fun initBoard() {
         gameBoard.clear()
         gameBoard.addAll(mutableListOf(0, 0, 0, 0))
         gameBoard.addAll(mutableListOf(0, 0, 0, 0))
@@ -113,7 +113,7 @@ class GameBoard {
         gameBoard.addAll(mutableListOf(0, 0, 0, 0))
     }
 
-    private fun resetSummedHelper() {
+    public fun resetSummedHelper() {
         summedHelper.clear()
         summedHelper.addAll(mutableListOf(false, false, false, false))
         summedHelper.addAll(mutableListOf(false, false, false, false))
@@ -127,12 +127,12 @@ class GameBoard {
             animations.add(MovementInfo(Point(), Point(), 0, 0))
     }
 
-    private fun insertAnimation(idx: Int, movementInfo: MovementInfo) {
+    public fun insertAnimation(idx: Int, movementInfo: MovementInfo) {
         animations.add(idx, movementInfo)
         animations.removeAt(idx + 1)
     }
 
-    private fun moveTile(start: Point, end: Point) : MovementInfo {
+    public fun moveTile(start: Point, end: Point) : MovementInfo {
         val startValue = gameBoard[Utils.getIndex(start)]
         val endValue = gameBoard[Utils.getIndex(end)]
 
@@ -216,7 +216,7 @@ class GameBoard {
         return MovementInfo(Point(), point, 0, value)
     }
 
-    private fun pushTileDown(i: Int, j: Int) : MovementInfo {
+    public fun pushTileDown(i: Int, j: Int) : MovementInfo {
         var movementInfo = MovementInfo(Point(i.toFloat(), j.toFloat()), Point(i.toFloat(), j.toFloat()),
             gameBoard[Utils.getIndex(i, j)], gameBoard[Utils.getIndex(i, j)])
 
@@ -280,7 +280,7 @@ class GameBoard {
         return MovementInfo(Point(i.toFloat(), j.toFloat()), movementInfo.end, startValue, movementInfo.endValue)
     }
 
-    private fun saveGameBoard() {
+    public fun saveGameBoard() {
         gameBoardBefore.clear()
 
         for(i in 0..15) {
