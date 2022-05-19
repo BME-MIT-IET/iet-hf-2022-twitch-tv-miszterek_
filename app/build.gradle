@@ -71,6 +71,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
     androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test:rules:1.4.0'
     androidTestImplementation('androidx.test.espresso:espresso-intents:3.4.0')
 }

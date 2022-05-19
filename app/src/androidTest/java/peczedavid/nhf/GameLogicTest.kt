@@ -21,7 +21,7 @@ class GameLogicTest {
 
     @get:Rule
     val activityRule = ActivityScenarioRule(GameActivity::class.java)
-    private val time = 1000L
+    private val time = 1500L
 
     @Before
     fun init() {
