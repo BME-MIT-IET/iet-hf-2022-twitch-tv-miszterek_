@@ -3,6 +3,7 @@ package peczedavid.nhf.model
 import junit.framework.TestCase.assertEquals
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsEqual.equalTo
+import org.junit.Before
 
 import org.junit.Test
 import peczedavid.nhf.animation.MovementInfo
@@ -15,13 +16,15 @@ class GameBoardTest {
 
     private var testGameBoard = GameBoard()
 
+    @Before
+    fun setUp(){
+        testGameBoard.initBoard()
+    }
+
     //a GameBoard osztály initBoard() függvényét teszteli
     //összahesonlítja egy manuálisan létrehozott mátrixxal
     @Test
     fun initBoardTest() {
-
-        testGameBoard.initBoard()
-
         var gameBoardFields: MutableList<Int> = mutableListOf()
 
         gameBoardFields.addAll(mutableListOf(0, 0, 0, 0))
@@ -69,8 +72,6 @@ class GameBoardTest {
     //összahesonlítja egy manuálisan létrehozott 0 "tartalmú elemmel"
     @Test
     fun getValueTest() {
-
-        testGameBoard.initBoard()
         var testGameBoardValue = testGameBoard.getValue(2, 2)
         assertEquals(testGameBoardValue, 0)
     }
@@ -111,7 +112,6 @@ class GameBoardTest {
 
         var exampleMove = exampleGameBoard.pushTileDown(2, 3)
 
-        println("asd")
         assertThat(movedField.get(Utils.getIndex(2, 3)), equalTo(exampleMove))
     }
 }
